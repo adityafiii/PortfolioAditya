@@ -21,23 +21,76 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Parallax effect on the background grid based on mouse movement
+    // Interactive Premium Features (Parallax, Custom Cursor, 3D Tilt)
     const gridBackground = document.querySelector('.grid-background');
-    const heroImage = document.querySelector('.hero-image');
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
     
+    // Navbar Glassmorphism Scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
     document.addEventListener('mousemove', (e) => {
+        // 1. Grid Parallax
         const x = e.clientX / window.innerWidth;
         const y = e.clientY / window.innerHeight;
-        
-        // Move grid slightly opposite to mouse
         const moveX = (x - 0.5) * 30;
         const moveY = (y - 0.5) * 30;
-        
         if(gridBackground) {
             gridBackground.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
         }
         
-        // Removed parallax effect on the image as requested by the user
+        // 2. Custom Cursor Positioning
+        if (cursorDot && cursorOutline) {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+            // Outline follows with a slight delay using transform via CSS transition, but we set left/top instantly
+            // Wait, standard implementation sets left/top and lets CSS `transition` handle the delay, but setting left/top directly avoids jitter.
+            // Let's use animate or just set it:
+            cursorOutline.style.left = `${e.clientX}px`;
+            cursorOutline.style.top = `${e.clientY}px`;
+        }
+    });
+
+    // Custom Cursor Hover Effects
+    const interactables = document.querySelectorAll('a, button, .project-card');
+    interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            if(cursorOutline) cursorOutline.classList.add('hover');
+        });
+        el.addEventListener('mouseleave', () => {
+            if(cursorOutline) cursorOutline.classList.remove('hover');
+        });
+    });
+
+    // 3D Tilt Effect for Project Cards
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const cardX = e.clientX - rect.left; // x position within the element
+            const cardY = e.clientY - rect.top;  // y position within the element
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate tilt (max 10 degrees)
+            const tiltX = ((cardY - centerY) / centerY) * -10; 
+            const tiltY = ((cardX - centerX) / centerX) * 10;
+            
+            card.style.transform = `translateY(-10px) perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            // Reset transform on leave
+            card.style.transform = `translateY(0) perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+        });
     });
     
     // Scroll Animations with Intersection Observer

@@ -21,6 +21,62 @@ body, html {
     overflow-x: hidden;
 }
 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-red);
+}
+
+/* Custom Cursor */
+@media (pointer: fine) {
+    body, a, button, .project-card, .nav-links a {
+        cursor: none !important;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent-red);
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        pointer-events: none;
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(244, 63, 94, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9998;
+        pointer-events: none;
+        transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+    }
+
+    .cursor-outline.hover {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(244, 63, 94, 0.1);
+        border-color: var(--accent-red);
+    }
+}
+
 /* Dot Grid Background */
 .grid-background {
     position: fixed;
@@ -45,6 +101,16 @@ body, html {
     justify-content: space-between;
     align-items: center;
     z-index: 100;
+    background-color: transparent;
+    transition: padding 0.4s ease, background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.navbar.scrolled {
+    padding: 1.2rem 5rem;
+    background-color: rgba(20, 20, 22, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo {
@@ -337,15 +403,16 @@ body, html {
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.4s ease, border-color 0.4s ease;
+    transition: transform 0.1s ease-out, border-color 0.4s ease, box-shadow 0.4s ease; /* changed transform timing for smooth 3D tracking */
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    transform-style: preserve-3d;
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
     border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 
 .project-card:hover .project-image img {
