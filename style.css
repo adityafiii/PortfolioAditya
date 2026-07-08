@@ -680,9 +680,13 @@ body, html {
     .education-section { padding: 2rem 1.5rem 4rem 1.5rem; }
     .contacts-section { padding: 2rem 1.5rem 4rem 1.5rem; }
 
-    /* Fix About Section alignments for mobile */
-    .about-content, .about-content .section-title, .story-text-wrapper {
-        text-align: left;
+    /* Keep About Section title right-aligned on mobile to match desktop */
+    .about-content .section-title {
+        text-align: right;
+    }
+    
+    .story-text-wrapper {
+        text-align: left; /* Keep text left-aligned to prevent typing jumps */
     }
 
     /* Typography Adjustments */
