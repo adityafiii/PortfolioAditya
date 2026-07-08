@@ -222,9 +222,24 @@ body, html {
 }
 
 .about-content {
-    max-width: 800px; /* Keep reading width comfortable */
+    max-width: 650px; /* Keep reading width comfortable and push to the right */
     margin-left: auto;
+}
+
+.about-content .section-title {
     text-align: right;
+}
+
+.story-text-wrapper {
+    text-align: left;
+}
+
+.name-intro {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
 }
 
 .about-text {
@@ -662,13 +677,18 @@ body, html {
     .education-section { padding: 2rem 1.5rem 4rem 1.5rem; }
     .contacts-section { padding: 2rem 1.5rem 4rem 1.5rem; }
 
+    /* Fix About Section alignments for mobile */
+    .about-content, .about-content .section-title, .story-text-wrapper {
+        text-align: left;
+    }
+
     /* Typography Adjustments */
     .section-title { 
         font-size: 2.2rem; 
         margin-bottom: 2rem;
     }
     
-    .about-text strong {
+    .name-intro {
         font-size: 1.2em !important; /* Scale down the large name intro */
     }
 
