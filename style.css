@@ -659,7 +659,7 @@ body, html {
 
     .hero-image {
         object-position: bottom center; /* Center the image on mobile */
-        transform: translateY(0); /* Remove the desktop push-down */
+        transform: translateX(25px); /* Nudge to the right to compensate for image whitespace */
     }
 
     /* Gradient overlay for mobile: fade out at the bottom to blend with text section */
